@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
-</head>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
+  <h1>ToDo Tasks</h1>
+   <table id="data-table">
+      <thead>
+         <tr>
+            <th>ID</th>
+            <th>Task</th>
+         </tr>
+      </thead>
+      <tbody></tbody>
+   </table>
+   <script>
+      fetch("api/Todo")
+      .then((response) => response.json())
+      .then((data) => {
+         var dataTable = document.getElementById("data-table");
+         var tbody = dataTable.getElementsByTagName("tbody")[0];
+         data.forEach((user) => {
+            var row = document.createElement("tr");
+            var idCell = document.createElement("td");
+            idCell.innerHTML = user.id;
+            var taskCell = document.createElement("td");
+            taskCell.innerHTML = user.name;
+            row.appendChild(idCell);
+            row.appendChild(taskCell);
+            tbody.appendChild(row);
+         });
+      });
+   </script>
 </body>
-
 </html>
